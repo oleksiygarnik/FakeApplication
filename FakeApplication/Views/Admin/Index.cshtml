@@ -1,0 +1,71 @@
+﻿@model List<FakeApplication.Models.Entities.User>;
+
+<section>
+    <div class="container">
+        <div class="row">
+
+            <br />
+
+            <div class="breadcrumbs">
+                <ol class="breadcrumb">
+                    <li><a href="/admin/index">Админпанель</a></li>
+                    <li class="active">Управление клиентами</li>
+                </ol>
+            </div>
+
+                <br />
+
+
+                <table class="table-bordered table-striped table">
+                    <tr>
+                        <th>ID</th>
+                        <th>Login of User</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Role</th>
+                        <th>Money</th>
+                        <th>IsBlocked</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => @item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Login)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Password)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RoleId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Money)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsBlocked)
+                    </td>
+                    <td><a href="/admin/editUser/@item.Id" title="Edit"><i class="fa fa-pencil-square-o">Edit</i></a></td>
+                    <td><a href="/admin/blockUser/@item.Id" title="Delete"><i class="fa fa-times">Block</i></a></td>
+                </tr>
+                    }
+                </table>
+            }
+
+        </div>
+    </div>
+</section>
+
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    <a href="/Auth/Logout">Exit</a>
+}

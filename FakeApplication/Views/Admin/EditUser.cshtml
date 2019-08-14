@@ -1,0 +1,74 @@
+﻿@model  FakeApplication.Models.Entities.User;
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<section>
+    <div class="container">
+        <div class="row">
+
+            <br />
+
+            <div class="breadcrumbs">
+                <ol class="breadcrumb">
+                    <li><a href="/admin/index">Админпанель</a></li>
+                    <li><a href="/admin/index">Управление клиентами</a></li>
+                    <li class="active">Edit user </li>
+                </ol>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="login-form">
+                    <form action="/admin/editUser" method="post" enctype="multipart/form-data">
+                        @Html.HiddenFor(m => m.Id)
+                        <p>
+                            @Html.LabelFor(m => m.Login, "Login")
+                            <br />
+                            @Html.EditorFor(m => m.Login)
+                        </p>
+
+                        <p>
+                            @Html.LabelFor(m => m.Email, "Email")
+                            <br />
+                            @Html.EditorFor(m => m.Email)
+
+                        </p>
+
+                        <p>
+                            @Html.LabelFor(m => m.Password, "Password")
+                            <br />
+                            @Html.EditorFor(m => m.Password)
+                        </p>
+
+                        <p>
+                            @Html.LabelFor(m => m.RoleId, "RoleId")
+                            <br />
+                            @Html.EditorFor(m => m.RoleId)
+                        </p>
+
+                        <p>
+                            @Html.LabelFor(m => m.IsBlocked, "IsBlocked")
+                            <br />
+                            @Html.EditorFor(m => m.IsBlocked)
+                        </p>
+
+
+                        <p>
+                            @Html.LabelFor(m => m.Money, "Money")
+                            <br />
+                            @Html.EditorFor(m => m.Money)
+                        </p>
+
+                        <p><input type="submit" value="Отправить" /></p>
+
+
+                        <br /><br />
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
