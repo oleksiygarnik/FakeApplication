@@ -12,6 +12,7 @@ namespace FakeApplication.Models.ViewModels
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Пароль не указан")]
+        [MinLength(8)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

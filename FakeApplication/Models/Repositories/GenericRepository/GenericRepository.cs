@@ -18,7 +18,7 @@ namespace FakeApplication.Models.Repositories.GenericRepository
         public T Add(T entity)
         {
             _context.Set<T>().Add(entity);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
             return entity;
         }
 

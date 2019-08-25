@@ -16,10 +16,12 @@ namespace FakeApplication.Models.ViewModels
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Не указан пароль ")]
+        [MinLength(8)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Required]
+        [MinLength(8)]
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Пароли не совпадают")]
         public string ConfirmPassword { get; set; }

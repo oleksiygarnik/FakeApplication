@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FakeApplication.Models.EfDataContext;
 using FakeApplication.Models.Entities;
+using FakeApplication.Models.Repositories;
 using FakeApplication.Models.Repositories.GenericRepository;
 
 namespace FakeApplication.Models.UoW
@@ -26,7 +27,7 @@ namespace FakeApplication.Models.UoW
         {
             get
             {
-                return _userRepository = _userRepository ?? new GenericRepository<User>(_context);
+                return _userRepository = _userRepository ?? new UserRepository(_context);
             }
         }
 
@@ -34,7 +35,7 @@ namespace FakeApplication.Models.UoW
         {
             get
             {
-                return _roleRepository = _roleRepository ?? new GenericRepository<Role>(_context);
+                return _roleRepository = _roleRepository ?? new RoleRepository(_context);
             }
         }
         public GenericRepository<Comment> CommentRepository

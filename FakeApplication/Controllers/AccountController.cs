@@ -5,6 +5,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using FakeApplication.Models.EfDataContext;
 using FakeApplication.Models.Entities;
+using FakeApplication.Models.Repositories;
+using FakeApplication.Models.UoW;
 using FakeApplication.Models.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -15,11 +17,11 @@ namespace FakeApplication.Controllers
 {
     public class AccountController : Controller
     {
-        private ApplicationContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AccountController(ApplicationContext context)
+        public AccountController(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
@@ -33,21 +35,22 @@ namespace FakeApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await _context.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
+                User user = (_unitOfWork.UserRepository as UserRepository).GetUserByEmailAndPassword(model.Email, model.Password);
 
                 if (user != null)
                 {
                     await Authenticate(user); // аутентификация
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("About", "Home");
                 }
                 else
                 {
-                    ModelState.AddModelError("Email", "Некорректные логин и(или) пароль");
+                    ModelState.AddModelError("loginModel.Email", "Некорректные логин и(или) пароль");
                 }
 
             }
 
+            //return null;
             return View(model);
         }
 
@@ -62,24 +65,22 @@ namespace FakeApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+                User user = (_unitOfWork.UserRepository as UserRepository).GetUserByEmail(model.Email);
 
                 if (user == null)
                 {
                     user = new User { Login = model.Login, Email = model.Email, Password = model.Password, Money = 0, IsBlocked = BlockStatus.Unblocked };
 
-                    Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "user");
+                    Role userRole = (_unitOfWork.RoleRepository as RoleRepository).GetRoleByName("user");
                     if (userRole != null)
                         user.RoleId = userRole.Id;
 
 
-                    _context.Users.Add(user);
-
-                    await _context.SaveChangesAsync();
+                    _unitOfWork.UserRepository.Add(user);
 
                     await Authenticate(user); // аутентификация
 
-                    return RedirectToAction("Login", "Account");
+                    return RedirectToAction("About", "Home");
                 }
                 else
                 {
@@ -109,7 +110,7 @@ namespace FakeApplication.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("About", "Home");
         }
 
     }

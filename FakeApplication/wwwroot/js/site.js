@@ -90,7 +90,7 @@ $(function () {
 
 
     $('#view_all_gallery').click(function () {
-        let content = '<div class="gallery_line main_flex__nowrap flex__jcontent_between"><div class="box_img_gallery" ><img src="../img/images/Layer1.png" alt="" id="myImg7"/></div ><div class="box_img_gallery"><img src="../img/images/Layer2.png" alt="" id = "myImg8"/></div> </div ><div class="name_gallery">Marina Palms / <span class="blue">North Miami Beach, FL 33162</span></div>';
+        let content = '<div class="gallery_line main_flex__nowrap flex__jcontent_between"><div class="box_img_gallery" ><img src="../img/images/fortnitehead.jpg" alt="" id="myImg7"/></div ><div class="box_img_gallery"><img src="../img/images/fortnitehead1.jpg" alt="" id = "myImg8"/></div> </div ><div class="name_gallery">Epic Games / <span class="blue"><a href="https://www.epicgames.com/fortnite/ru/play-now/battle-royale">Fortnite</a></span></div>';
       
         $('#gallery_box').append(content);
         $(this).remove();
@@ -165,7 +165,7 @@ $(window).on('load', function () {
     var $preloader = $('#p_prldr'),
         $svg_anm   = $preloader.find('.svg_anm');
     $svg_anm.fadeOut();
-    $preloader.delay(500).fadeOut('slow');
+    $preloader.delay(1000).fadeOut('slow');
 });
 
 var modal = document.getElementById('myModal');

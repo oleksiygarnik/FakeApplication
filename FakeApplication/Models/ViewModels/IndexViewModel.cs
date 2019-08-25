@@ -11,5 +11,9 @@ namespace FakeApplication.Models.ViewModels
         public User User { get; set; }
 
         public IEnumerable<Comment> Comments { get; set; }
+
+        public LoginModel loginModel { get; set; }
+
+        public RegisterModel registerModel { get; set; }
     }
 }
